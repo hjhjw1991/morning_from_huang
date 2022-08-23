@@ -6,7 +6,7 @@ import requests
 import os
 import random
 
-
+# "name,mm-dd,..."
 DATE_MEMO = os.environ["DATE_MEMO_NAME_VALUE"]
 
 today = datetime.now()
@@ -14,11 +14,11 @@ start_date = os.environ['LOVE_START']  # yyyy-mm-dd
 city = os.environ['CITY']
 birthday = os.environ['BIRTHDAY']  # yyyy-mm-dd
 
-app_id = os.environ["APP_ID"]
-app_secret = os.environ["APP_SECRET"]
+app_id = os.environ["APP_ID"]  # from wechat open
+app_secret = os.environ["APP_SECRET"]  # from wechat open
 
-user_ids = os.environ["USER_ID"].split("\n")
-template_id = os.environ["TEMPLATE_ID"]
+user_ids = os.environ["USER_ID"].split("\n")  # from wechat open
+template_id = os.environ["TEMPLATE_ID"]  # from wechat open
 
 # "name,mm-dd,..."
 memo_name_value = list(map(lambda it: it.strip(), DATE_MEMO.split(",")))
@@ -41,6 +41,11 @@ def get_birthday():
   if next < datetime.now():
     next = next.replace(year=next.year + 1)
   return (next - today).days
+
+def get_live_days():
+  """出生了多少天"""
+  birth = datetime.strptime(birthday, "%Y-%m-%d")
+  return (datetime.now() - birth).days
 
 def get_nearest_memo_days():
   year = date.today().year
