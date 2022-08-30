@@ -80,13 +80,13 @@ wm = WeChatMessage(client)
 wea, temperature, highest, lowest = get_weather()
 memo_info = get_nearest_memo_days()
 data = {"weather": {"value": wea, "color": get_random_color()},
-        "temperature": {"value": temperature, "color": get_random_color()},
+        "temperature_high": {"value": highest, "color": get_random_color()},
+        "temperature_low": {"value": lowest, "color": get_random_color()},
         "love_days": {"value": get_count(), "color": get_random_color()},
         "days_memo_name": {"value": memo_info[0], "color": get_random_color()},
         "days_memo_left": {"value": memo_info[1], "color": get_random_color()},
         "words": {"value": get_words(), "color": get_random_color()},
-        "highest": {"value": highest, "color": get_random_color()},
-        "lowest": {"value": lowest, "color": get_random_color()}}
+        "temperature": {"value": temperature, "color": get_random_color()}}
 count = 0
 for user_id in user_ids:
   res = wm.send_template(user_id, template_id, data)
